@@ -1,0 +1,105 @@
+
+// Classe ListaSimples
+//EXPLICAÇÕES
+// LOCAL = Local são as posições da lista;
+
+public class ListaSimples {
+    //Somente iniciando as variaveis
+    No inicio = null;
+    int tamanho = 0;
+
+    //função para inserir o inicio da lista
+    public void inserirInicio(String info){
+        No no = new No();
+        no.info = info;
+        no.proximo = inicio;
+        inicio = no;
+        tamanho++;
+    }
+    //função para remover itens da lista
+    public String retirarInicio(){
+        if(inicio == null){
+            return null;
+        }
+        String info = inicio.info;
+        inicio = inicio.proximo;
+        tamanho--;
+
+        return info;
+    }
+    public void inserirFim(String info){
+        //Aqui eu instancio um novo NO e adiciono uma informação
+        No no = new No();
+        no.info=info;
+        //Se o inicio for igual a Null
+        if(inicio == null){
+            no.proximo = inicio;
+            inicio = no;
+        } else{
+            No local = inicio;
+            //O Laço vai rodar até a proxima posição ser null
+            while(local.proximo != null){
+                local = local.proximo;
+            }
+            local.proximo = no;
+            no.proximo = null;
+        }
+        tamanho++;
+    }
+    public String retirarFim(){
+        if(inicio == null){
+            return null;
+        }
+        No local = inicio;
+        while(local.proximo != null){
+            No aux = local;
+            local = local.proximo;
+            if(local.proximo == null){
+                aux.proximo = null;
+                tamanho--;
+                return local.info;
+            }
+        }
+        return null;
+    }
+
+
+
+
+
+    //toString somente para testar o resultado
+    @Override
+    public String toString() {
+        String str = "("+ tamanho + ") ";
+        No local = inicio;
+        while (local != null){
+            str += local.info+" ";
+            local = local.proximo;
+        }
+        return str;
+    }
+
+
+    //Aplicativo
+    public static void main(String[] args) {
+        ListaSimples l = new ListaSimples();
+        System.out.println(l);
+
+        //Aqui começo inserir itens na lista
+        l.inserirFim("A");
+        System.out.println(l);
+        l.inserirFim("B");
+        System.out.println(l);
+        l.inserirFim("C");
+        System.out.println(l);
+        l.inserirFim("D");
+        System.out.println(l);
+
+        //Aqui eu Começo a Retirar os itens da Lista
+        String out;
+        while((out = l.retirarInicio()) != null){
+            System.out.println(l);
+        }
+
+    }
+}
