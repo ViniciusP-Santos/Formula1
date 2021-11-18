@@ -46,6 +46,8 @@ public class ListaSimples {
         }
         tamanho++;
     }
+
+    //Basicamente essa função faz o mesmo da função retirarInicio, porém ela começa do fim.
     public String retirarFim(){
         if(inicio == null){
             return null;
@@ -60,9 +62,48 @@ public class ListaSimples {
                 return local.info;
             }
         }
-        return null;
+        inicio = null;
+        tamanho--;
+        return local.info;
     }
 
+    //Esta função insere dados na parte da lista que for necessario, através do indice.
+    public void inserirIndice(int indice,String info){
+        if(indice <=0){
+            inserirInicio(info);
+        }else if(indice >= tamanho){
+            inserirFim(info);
+        }else{
+            No local = inicio;
+            for(int i = 0; i< indice -1; i++){
+                local = local.proximo;
+            }
+            No no = new No();
+            no.info = info;
+            no.proximo = local.proximo;
+            local.proximo = no;
+            tamanho++;
+        }
+    }
+
+    //Esta Função retira um item expecifico da lista, atráves de um indice.
+    public String retirarIndice(int indice){
+        if(indice < 0 || indice >= tamanho || inicio == null){
+            return null;
+        }else if (indice == 0 ){
+            return retirarInicio();
+        }else if (indice == tamanho -1){
+            return retirarFim();
+        }
+        No local = inicio;
+        for(int i = 0; i < indice -1; i++){
+            local = local.proximo;
+        }
+        String info = local.proximo.info;
+        local.proximo = local.proximo.proximo;
+        tamanho--;
+        return info;
+    }
 
 
 
@@ -95,9 +136,18 @@ public class ListaSimples {
         l.inserirFim("D");
         System.out.println(l);
 
+
+        //Aqui eu estou inserindo um elemento no meio da lista.
+        l.inserirIndice(2,"F");
+        System.out.println(l);
+
+       //Removendo um item do indice.
+       //Coloquei para imprimir, para ter noção do que está retirando
+        System.out.println("Retirar: "+l.retirarIndice(2));
+
         //Aqui eu Começo a Retirar os itens da Lista
         String out;
-        while((out = l.retirarInicio()) != null){
+        while((out = l.retirarFim()) != null){
             System.out.println(l);
         }
 
