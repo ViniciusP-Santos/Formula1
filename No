@@ -1,0 +1,6 @@
+//Classe criada somente para ter um nó, uma referencia para o proximo valor da lista
+
+public class No {
+    String info;
+    No proximo;
+}
